@@ -1,6 +1,7 @@
 # desafio
 
-A new Flutter project.
+Segue o desafio flutter.
+Para rodar o app basta clonar o repositório, rodar o comando  " flutter pub get " na raiz do diretório clonado e o comando " flutter run " logo após.
 
 ## Getting Started
 
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
