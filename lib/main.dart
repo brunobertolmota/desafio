@@ -1,9 +1,15 @@
 import 'package:desafio/view/home.dart';
+import 'package:desafio/view/reset_password.dart';
 import 'package:desafio/view/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'view/login.dart';
+
+Future<void> main() async {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
@@ -17,10 +23,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      initialRoute: '/splash',
+      initialRoute: '/home',
       routes: {
-        '/splash': (context) => SplashScreen(),
-        '/home': (context) => const MyHomePage(title: 'Marvel Personagens'),
+        '/splash': (context) => const SplashScreen(),
+        '/login': (context) => const LoginAuth(),
+        '/passwordRecovery': (context) => const ResetPassword(),
+        '/home': (context) => const Home(),
         //'/login': (context) => const LoginAuth(),
         //'/signup': (context) => const Signup(),
       },

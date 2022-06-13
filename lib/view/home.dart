@@ -1,48 +1,94 @@
+import 'package:desafio/controller/events_controller.dart';
+import 'package:desafio/model/event_model.dart';
+import 'package:desafio/view/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomeState extends State<Home> {
+  bool isLoading = false;
+  bool isError = false;
+  List<Event> eventList = [];
+  final eventController = EventsController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Widget _stateError() {
+    return Column(
+      children: [
+        const Text('Ocorreu um erro'),
+        ElevatedButton(
+            onPressed: () async {
+              await eventController.getEvents();
+            },
+            child: const Text('Tentar novamente'))
+      ],
+    );
+  }
+
+  Widget _stateLoadEvents(context) {
+    return ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: eventList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Column(children: [
+              Text(
+                eventList[index].eventName,
+                style: const TextStyle(fontSize: 24, color: Colors.black),
+              ),
+              Image.network(eventList[index].thumbnail),
+            ]),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: AppBar(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color.fromRGBO(112, 82, 204, 1),
+          title: Text(
+            'Eventos',
+            style: GoogleFonts.montserrat(
+              textStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
             ),
-          ],
+          ),
+          centerTitle: true,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body:
+          // Column(
+          //   children: <Widget>[
+          //     Pages(),
+          Center(
+        child: isLoading
+            ? const CircularProgressIndicator()
+            : isError
+                ? _stateError()
+                : _stateLoadEvents(context),
+      ),
+      //],
     );
+    //);
   }
 }

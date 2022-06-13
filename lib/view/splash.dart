@@ -19,7 +19,7 @@ class Splash extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 3),
-        () => Navigator.popAndPushNamed(context, '/home'));
+        () => Navigator.popAndPushNamed(context, '/login'));
     var assetsImage = SvgPicture.asset(
         'assets/images/splash.svg'); //<- Creates an object that fetches an image.
 
