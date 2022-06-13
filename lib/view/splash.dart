@@ -18,15 +18,17 @@ class Splash extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 3),
+    Timer(
+        const Duration(seconds: 3),
+        //ADICIONAR O IF CASO O USUARIO ESTEJA AUTENTICADO IR DIRETO PRA HOME!!!!
         () => Navigator.popAndPushNamed(context, '/login'));
     var assetsImage = SvgPicture.asset(
-        'assets/images/splash.svg'); //<- Creates an object that fetches an image.
-
+        'assets/images/splash.svg'); //<- Creates an object that fetches an image
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(color: Colors.purple),
+          decoration:
+              const BoxDecoration(color: Color.fromRGBO(112, 82, 204, 1)),
           child: Center(
             child: assetsImage,
           ),
