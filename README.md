@@ -3,6 +3,7 @@
 Segue o desafio flutter.
 Para rodar o app basta clonar o repositório, rodar o comando  " flutter pub get " na raiz do diretório clonado e o comando " flutter run " logo após.
 
+para logar no app  entre com o email: teste123@gmail.com  e a senha: 123456
 ## Getting Started
 
 This project is a starting point for a Flutter application.
